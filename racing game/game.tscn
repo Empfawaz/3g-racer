@@ -1,0 +1,96 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://icon.png" type="Texture" id=1]
+
+[sub_resource type="CubeMesh" id=1]
+size = Vector3( 50, 1, 50 )
+
+[sub_resource type="SpatialMaterial" id=2]
+flags_world_triplanar = true
+albedo_texture = ExtResource( 1 )
+uv1_triplanar = true
+
+[sub_resource type="ConcavePolygonShape" id=3]
+data = PoolVector3Array( -25, 0.5, 25, 25, 0.5, 25, -25, -0.5, 25, 25, 0.5, 25, 25, -0.5, 25, -25, -0.5, 25, 25, 0.5, -25, -25, 0.5, -25, 25, -0.5, -25, -25, 0.5, -25, -25, -0.5, -25, 25, -0.5, -25, 25, 0.5, 25, 25, 0.5, -25, 25, -0.5, 25, 25, 0.5, -25, 25, -0.5, -25, 25, -0.5, 25, -25, 0.5, -25, -25, 0.5, 25, -25, -0.5, -25, -25, 0.5, 25, -25, -0.5, 25, -25, -0.5, -25, 25, 0.5, 25, -25, 0.5, 25, 25, 0.5, -25, -25, 0.5, 25, -25, 0.5, -25, 25, 0.5, -25, -25, -0.5, 25, 25, -0.5, 25, -25, -0.5, -25, 25, -0.5, 25, 25, -0.5, -25, -25, -0.5, -25 )
+
+[sub_resource type="CubeMesh" id=4]
+size = Vector3( 1.5, 0.5, 3 )
+
+[sub_resource type="ConvexPolygonShape" id=5]
+points = PoolVector3Array( -0.7225, -0.25, -1.43083, 0.694167, 0.25, 1.37472, -0.694167, 0.25, 1.37472, 0.7225, -0.25, 1.43083, 0.694167, 0.25, -1.37472, -0.7225, -0.25, 1.43083, 0.7225, -0.25, -1.43083, -0.694167, 0.25, -1.37472 )
+
+[sub_resource type="SpatialMaterial" id=6]
+albedo_color = Color( 0.0705882, 0.0588235, 0.0588235, 1 )
+
+[sub_resource type="CylinderMesh" id=7]
+material = SubResource( 6 )
+top_radius = 0.4
+bottom_radius = 0.4
+height = 0.25
+radial_segments = 12
+
+[node name="game" type="Spatial"]
+
+[node name="ground" type="MeshInstance" parent="."]
+mesh = SubResource( 1 )
+material/0 = SubResource( 2 )
+
+[node name="StaticBody" type="StaticBody" parent="ground"]
+
+[node name="CollisionShape" type="CollisionShape" parent="ground/StaticBody"]
+shape = SubResource( 3 )
+
+[node name="car" type="VehicleBody" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.27409, 0 )
+
+[node name="carbody" type="MeshInstance" parent="car"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0225683, -0.0292622, 0.0138478 )
+mesh = SubResource( 4 )
+material/0 = null
+
+[node name="CollisionShape" type="CollisionShape" parent="car"]
+shape = SubResource( 5 )
+
+[node name="front_left" type="VehicleWheel" parent="car"]
+transform = Transform( -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -0.8646, -0.0412658, -1.28247 )
+wheel_radius = 0.4
+suspension_stiffness = 50.0
+damping_compression = 1.9
+damping_relaxation = 2.0
+
+[node name="MeshInstance" type="MeshInstance" parent="car/front_left"]
+mesh = SubResource( 7 )
+material/0 = null
+
+[node name="front_right" type="VehicleWheel" parent="car"]
+transform = Transform( -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0.877052, -0.0412658, -1.28247 )
+wheel_radius = 0.4
+suspension_stiffness = 50.0
+damping_compression = 1.9
+damping_relaxation = 2.0
+
+[node name="MeshInstance" type="MeshInstance" parent="car/front_right"]
+mesh = SubResource( 7 )
+material/0 = null
+
+[node name="back_right" type="VehicleWheel" parent="car"]
+transform = Transform( -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -0.8646, -0.0412658, 1.17266 )
+wheel_radius = 0.4
+suspension_stiffness = 50.0
+damping_compression = 1.9
+damping_relaxation = 2.0
+
+[node name="MeshInstance" type="MeshInstance" parent="car/back_right"]
+mesh = SubResource( 7 )
+material/0 = null
+
+[node name="back_left" type="VehicleWheel" parent="car"]
+transform = Transform( -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0.94092, -0.0412658, 1.17159 )
+wheel_radius = 0.4
+suspension_stiffness = 50.0
+damping_compression = 1.9
+damping_relaxation = 2.0
+
+[node name="MeshInstance" type="MeshInstance" parent="car/back_left"]
+mesh = SubResource( 7 )
+material/0 = null
